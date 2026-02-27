@@ -49,28 +49,29 @@
     revealObserver.observe(el);
   });
 
-  // ----- Showreel "Du concept à la création" — expérience scroll
-  const showreelSection = document.getElementById('showreel');
-  const showreelProgressFill = document.getElementById('showreelProgressFill');
-  const showreelVideoWrap = document.getElementById('showreelVideoWrap');
-  const showreelWords = document.querySelectorAll('.showreel-word');
+  // ----- Workflow "Comment on travaille" — expérience scroll (Pré-production, Production, Post-production)
+  const workflowSection = document.getElementById('workflow');
+  const workflowProgressFill = document.getElementById('workflowProgressFill');
+  const workflowWords = document.querySelectorAll('.workflow-word');
+  const workflowSteps = document.querySelectorAll('.workflow-step');
+  const workflowVideoCta = document.getElementById('workflowVideoCta');
 
-  function updateShowreelScroll() {
-    if (!showreelSection || !showreelProgressFill) return;
+  function updateWorkflowScroll() {
+    if (!workflowSection || !workflowProgressFill) return;
 
-    const rect = showreelSection.getBoundingClientRect();
+    const rect = workflowSection.getBoundingClientRect();
     const viewportHeight = window.innerHeight;
 
-    // Progression 0 → 1 : section entre par le bas jusqu'à bien visible
-    const progress = Math.max(0, Math.min(1, (viewportHeight * 0.5 - rect.top) / (viewportHeight * 0.6)));
+    // Progression 0 → 1 au fur et à mesure du défilement dans la section
+    const progress = Math.max(0, Math.min(1, (viewportHeight * 0.5 - rect.top) / (viewportHeight * 0.65)));
     const progressPercent = progress * 100;
 
-    showreelProgressFill.style.width = progressPercent + '%';
+    workflowProgressFill.style.width = progressPercent + '%';
 
-    // Révélation des mots un par un selon la progression
-    showreelWords.forEach(function (word, i) {
-      const revealAt = (i + 0.5) / showreelWords.length;
-      const highlightAt = (i + 0.8) / showreelWords.length;
+    // Révélation des mots du titre "Comment on travaille"
+    workflowWords.forEach(function (word, i) {
+      const revealAt = (i + 0.5) / workflowWords.length;
+      const highlightAt = (i + 0.8) / workflowWords.length;
       if (progress >= revealAt * 0.9) {
         word.classList.add('revealed');
         if (progress >= highlightAt) word.classList.add('highlight');
@@ -79,19 +80,29 @@
       }
     });
 
-    // Vidéo scale-in quand la section est bien visible
-    if (showreelVideoWrap) {
-      if (rect.top < viewportHeight * 0.8) {
-        showreelVideoWrap.classList.add('scroll-in');
+    // Révélation des 3 étapes (Pré-production, Production, Post-production) une par une
+    workflowSteps.forEach(function (step, i) {
+      const stepProgress = (progress - 0.15 - i * 0.25) / 0.25;
+      if (stepProgress >= 0) {
+        step.classList.add('revealed');
       } else {
-        showreelVideoWrap.classList.remove('scroll-in');
+        step.classList.remove('revealed');
+      }
+    });
+
+    // CTA "Découvrir nos services" en fin de section
+    if (workflowVideoCta) {
+      if (progress >= 0.85) {
+        workflowVideoCta.classList.add('revealed');
+      } else {
+        workflowVideoCta.classList.remove('revealed');
       }
     }
   }
 
-  if (showreelSection) {
-    window.addEventListener('scroll', updateShowreelScroll, { passive: true });
-    updateShowreelScroll();
+  if (workflowSection) {
+    window.addEventListener('scroll', updateWorkflowScroll, { passive: true });
+    updateWorkflowScroll();
   }
 
   // ----- Testimonials carousel
