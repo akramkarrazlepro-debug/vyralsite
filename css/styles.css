@@ -390,10 +390,13 @@ img {
 .hero-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  line-height: 1.1;
+  font-size: clamp(2.25rem, 5.5vw, 3.75rem);
+  line-height: 1.15;
   letter-spacing: -0.03em;
   margin-bottom: 1.5rem;
+  max-width: min(100%, 720px);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hero-title .line {
@@ -409,6 +412,33 @@ img {
 .hero-title .line:nth-child(2) span {
   animation-delay: 0.15s;
   animation-fill-mode: both;
+}
+
+/* Ligne principale : impact visuel */
+.hero-title-main {
+  color: var(--text);
+  text-shadow: 0 0 60px rgba(14, 165, 233, 0.08);
+}
+
+/* Tagline : plus légère, couleur accent */
+.hero-title-tagline {
+  font-size: 0.55em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--primary-light);
+  margin-top: 0.35em;
+  display: block;
+  background: linear-gradient(135deg, var(--primary-light), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@supports (not (-webkit-background-clip: text)) {
+  .hero-title-tagline {
+    color: var(--primary-light);
+    -webkit-text-fill-color: inherit;
+  }
 }
 
 .hero-subtitle {
