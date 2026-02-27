@@ -996,23 +996,58 @@ img {
 }
 
 .about-content {
-  max-width: 720px;
+  max-width: 680px;
   margin: 0 auto;
   position: relative;
   text-align: center;
 }
 
-.about-lead {
-  font-size: 1.15rem;
-  color: var(--text-muted);
-  margin-bottom: 1.25rem;
-  line-height: 1.7;
+.about-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin-bottom: 1.75rem;
+  color: var(--text);
 }
 
-.about-text {
+.about-title-line {
+  display: block;
+}
+
+.about-title-line:last-child {
+  color: var(--primary-light);
+  font-weight: 600;
+}
+
+.about-lead {
+  font-size: 1.12rem;
   color: var(--text-muted);
   margin-bottom: 2rem;
   line-height: 1.75;
+}
+
+.about-punchlines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  margin-top: 0.5rem;
+}
+
+.about-punchline {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin: 0;
+}
+
+.about-punchline-q {
+  color: var(--primary-light);
+  font-weight: 600;
+  display: inline;
 }
 
 .about .btn {
