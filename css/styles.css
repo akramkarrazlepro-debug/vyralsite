@@ -549,11 +549,18 @@ img {
   margin-bottom: 3rem;
 }
 
-/* ----- Showreel ----- */
+/* ----- Showreel — expérience scroll "Du concept à la création" ----- */
 .showreel {
-  padding: 6rem 2rem;
+  padding: 6rem 2rem 8rem;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.showreel-scroll-experience {
+  min-height: 120vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .showreel-label {
@@ -564,12 +571,60 @@ img {
   margin-bottom: 1rem;
 }
 
+.showreel-title-wrap {
+  margin-bottom: 3rem;
+  position: relative;
+}
+
 .showreel-title {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: clamp(2rem, 4vw, 3rem);
-  margin-bottom: 2.5rem;
   letter-spacing: -0.02em;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25em 0.35em;
+  line-height: 1.2;
+}
+
+.showreel-word {
+  display: inline-block;
+  opacity: 0.2;
+  transform: translateY(20px);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out), color 0.4s;
+}
+
+.showreel-word.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.showreel-word.highlight {
+  color: var(--primary-light);
+  text-shadow: 0 0 30px rgba(14, 165, 233, 0.3);
+}
+
+/* Barre de progression scroll */
+.showreel-progress-track {
+  margin-top: 1.5rem;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.showreel-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 3px;
+  transition: width 0.12s ease-out;
+  box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
 }
 
 .showreel-video-wrap {
@@ -578,6 +633,15 @@ img {
   overflow: hidden;
   background: var(--bg-card);
   border: 1px solid var(--border);
+  transform: scale(0.92);
+  opacity: 0.6;
+  transition: transform 0.8s var(--ease-out), opacity 0.8s var(--ease-out), box-shadow 0.5s;
+}
+
+.showreel-video-wrap.scroll-in {
+  transform: scale(1);
+  opacity: 1;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(14, 165, 233, 0.1);
 }
 
 .showreel-placeholder {

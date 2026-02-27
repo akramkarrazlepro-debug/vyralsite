@@ -49,6 +49,51 @@
     revealObserver.observe(el);
   });
 
+  // ----- Showreel "Du concept à la création" — expérience scroll
+  const showreelSection = document.getElementById('showreel');
+  const showreelProgressFill = document.getElementById('showreelProgressFill');
+  const showreelVideoWrap = document.getElementById('showreelVideoWrap');
+  const showreelWords = document.querySelectorAll('.showreel-word');
+
+  function updateShowreelScroll() {
+    if (!showreelSection || !showreelProgressFill) return;
+
+    const rect = showreelSection.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+
+    // Progression 0 → 1 : section entre par le bas jusqu'à bien visible
+    const progress = Math.max(0, Math.min(1, (viewportHeight * 0.5 - rect.top) / (viewportHeight * 0.6)));
+    const progressPercent = progress * 100;
+
+    showreelProgressFill.style.width = progressPercent + '%';
+
+    // Révélation des mots un par un selon la progression
+    showreelWords.forEach(function (word, i) {
+      const revealAt = (i + 0.5) / showreelWords.length;
+      const highlightAt = (i + 0.8) / showreelWords.length;
+      if (progress >= revealAt * 0.9) {
+        word.classList.add('revealed');
+        if (progress >= highlightAt) word.classList.add('highlight');
+      } else {
+        word.classList.remove('revealed', 'highlight');
+      }
+    });
+
+    // Vidéo scale-in quand la section est bien visible
+    if (showreelVideoWrap) {
+      if (rect.top < viewportHeight * 0.8) {
+        showreelVideoWrap.classList.add('scroll-in');
+      } else {
+        showreelVideoWrap.classList.remove('scroll-in');
+      }
+    }
+  }
+
+  if (showreelSection) {
+    window.addEventListener('scroll', updateShowreelScroll, { passive: true });
+    updateShowreelScroll();
+  }
+
   // ----- Testimonials carousel
   const track = document.getElementById('testimonialsTrack');
   const prevBtn = document.getElementById('testimonialPrev');
