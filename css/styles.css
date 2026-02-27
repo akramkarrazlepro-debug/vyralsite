@@ -579,6 +579,15 @@ img {
   margin-bottom: 3rem;
 }
 
+.section-intro {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+}
+
 /* ----- Showreel ----- */
 .showreel {
   padding: 6rem 2rem;
@@ -731,8 +740,19 @@ img {
   margin-top: 2rem;
 }
 
+.workflow-steps-4 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 900px) {
+  .workflow-steps-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
 @media (max-width: 900px) {
-  .workflow-steps {
+  .workflow-steps,
+  .workflow-steps-4 {
     grid-template-columns: 1fr;
   }
 }
@@ -1137,10 +1157,33 @@ img {
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 600;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   max-width: 560px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.footer-cta-text {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  max-width: 480px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.65;
+}
+
+.footer-cta-email {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.footer-cta-email a {
+  color: var(--primary-light);
+  font-weight: 500;
+}
+
+.footer-cta-email a:hover {
+  text-decoration: underline;
 }
 
 .footer-services-list {

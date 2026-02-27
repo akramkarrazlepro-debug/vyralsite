@@ -49,7 +49,7 @@
     revealObserver.observe(el);
   });
 
-  // ----- Workflow "Comment on travaille" — expérience scroll (Pré-production, Production, Post-production)
+  // ----- Workflow "Travailler avec nous, c'est simple" — animation défilement (4 étapes)
   const workflowSection = document.getElementById('workflow');
   const workflowProgressFill = document.getElementById('workflowProgressFill');
   const workflowWords = document.querySelectorAll('.workflow-word');
@@ -68,7 +68,7 @@
 
     workflowProgressFill.style.width = progressPercent + '%';
 
-    // Révélation des mots du titre "Comment on travaille"
+    // Révélation des mots du titre "Travailler avec nous, c'est simple."
     workflowWords.forEach(function (word, i) {
       const revealAt = (i + 0.5) / workflowWords.length;
       const highlightAt = (i + 0.8) / workflowWords.length;
@@ -80,10 +80,10 @@
       }
     });
 
-    // Révélation des 3 étapes (Pré-production, Production, Post-production) une par une
+    // Révélation des 4 étapes une par une au défilement
     workflowSteps.forEach(function (step, i) {
-      const stepProgress = (progress - 0.15 - i * 0.25) / 0.25;
-      if (stepProgress >= 0) {
+      const stepRevealAt = 0.1 + i * 0.2;
+      if (progress >= stepRevealAt) {
         step.classList.add('revealed');
       } else {
         step.classList.remove('revealed');
