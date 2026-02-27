@@ -1321,3 +1321,92 @@ img {
   font-size: 0.85rem;
   color: var(--text-muted);
 }
+
+/* ----- Pages service (film-corporate, reels-shorts, ugc, etc.) ----- */
+.service-page {
+  min-height: calc(100vh - 200px);
+  padding: 8rem 2rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.service-page-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.service-page-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--primary-light);
+  margin-bottom: 1rem;
+}
+
+.service-page-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 3rem);
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 1.25rem;
+  line-height: 1.2;
+}
+
+.service-page-lead {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 2rem;
+}
+
+.service-page-body {
+  text-align: left;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.75;
+  margin-bottom: 2.5rem;
+}
+
+.service-page-body p {
+  margin-bottom: 1rem;
+}
+
+.service-page-body p:last-child {
+  margin-bottom: 0;
+}
+
+.service-page-back {
+  display: inline-block;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+
+.service-page-back:hover {
+  color: var(--primary-light);
+}
+
+.service-card a.service-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+}
+
+.service-card a.service-card-link:hover {
+  color: inherit;
+}
+
+.service-card-inner .link-arrow {
+  margin-top: 0.75rem;
+}
+
+.service-card-link:hover .link-arrow {
+  gap: 0.6rem;
+  color: var(--primary);
+  transform: translateX(4px);
+}
