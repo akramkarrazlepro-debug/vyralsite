@@ -1,6 +1,17 @@
 (function () {
   'use strict';
 
+  // ----- Parallax léger sur le hero (profondeur)
+  const hero = document.querySelector('.hero');
+  const heroBg = document.querySelector('.hero-bg-gradient');
+  if (hero && heroBg) {
+    window.addEventListener('scroll', function () {
+      const y = window.scrollY;
+      const rate = y * 0.15;
+      heroBg.style.transform = 'translate3d(0, ' + rate + 'px, 0)';
+    }, { passive: true });
+  }
+
   // ----- Header scroll
   const header = document.getElementById('header');
   if (header) {
