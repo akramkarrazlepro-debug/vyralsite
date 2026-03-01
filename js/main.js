@@ -174,4 +174,17 @@
       }
     });
   });
+
+  // ----- Blocs services : clic = afficher description, masquer image
+  document.querySelectorAll('[data-service-block]').forEach(function (block) {
+    block.addEventListener('click', function () {
+      this.classList.toggle('is-open');
+    });
+    block.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.classList.toggle('is-open');
+      }
+    });
+  });
 })();
