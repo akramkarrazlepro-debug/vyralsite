@@ -891,40 +891,54 @@ img {
   box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
 }
 
-.workflow-steps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  margin-top: 2rem;
+/* Timeline : ligne du temps + étapes */
+.workflow-timeline {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem 1rem;
+  margin-top: 3rem;
+  padding-bottom: 1rem;
 }
 
-.workflow-steps-4 {
-  grid-template-columns: repeat(2, 1fr);
+.workflow-timeline-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 28px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), rgba(14, 165, 233, 0.4), var(--accent));
+  border-radius: 3px;
+  opacity: 0.6;
+  pointer-events: none;
 }
 
-@media (min-width: 900px) {
-  .workflow-steps-4 {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media (max-width: 900px) {
-  .workflow-steps,
-  .workflow-steps-4 {
-    grid-template-columns: 1fr;
+@media (max-width: 768px) {
+  .workflow-timeline-line {
+    left: 16px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    height: auto;
+    right: auto;
+    background: linear-gradient(180deg, var(--primary), rgba(14, 165, 233, 0.4), var(--accent));
   }
 }
 
 .workflow-step {
+  position: relative;
+  flex: 1 1 200px;
+  min-width: 0;
+  max-width: 280px;
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
   opacity: 0.5;
   transform: translateY(30px);
-  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out), border-color 0.3s, box-shadow 0.4s;
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out), border-color 0.35s, box-shadow 0.4s var(--ease-out);
+  cursor: pointer;
 }
 
 .workflow-step.revealed {
@@ -932,48 +946,93 @@ img {
   transform: translateY(0);
 }
 
-.workflow-step::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.08), transparent);
-  transition: left 0.6s var(--ease-out);
-}
-
 .workflow-step:hover {
-  border-color: rgba(14, 165, 233, 0.3);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border-color: rgba(14, 165, 233, 0.45);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35), 0 0 24px rgba(14, 165, 233, 0.12);
 }
 
-.workflow-step:hover::after {
-  left: 100%;
+/* Point sur la ligne du temps */
+.workflow-step-dot {
+  position: absolute;
+  left: 50%;
+  top: -32px;
+  width: 14px;
+  height: 14px;
+  margin-left: -7px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.4);
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+  z-index: 2;
+}
+
+.workflow-step:hover .workflow-step-dot {
+  transform: scale(1.25);
+  box-shadow: 0 0 20px rgba(14, 165, 233, 0.6), 0 0 0 2px rgba(14, 165, 233, 0.5);
+}
+
+@media (max-width: 768px) {
+  .workflow-step {
+    flex: 1 1 100%;
+    max-width: none;
+    padding-left: 2.5rem;
+  }
+  .workflow-step-dot {
+    left: 8px;
+    top: 28px;
+    margin-left: 0;
+  }
+}
+
+.workflow-step-inner {
+  position: relative;
+}
+
+.workflow-step-head {
+  margin-bottom: 0;
 }
 
 .workflow-step-num {
   display: block;
   font-family: var(--font-display);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 700;
   color: var(--primary-light);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.35rem;
   letter-spacing: 0.05em;
 }
 
 .workflow-step h3 {
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin: 0 0 0.5rem;
   color: var(--text);
+  transition: margin 0.35s var(--ease-out);
 }
 
-.workflow-step p {
+.workflow-step-desc {
   color: var(--text-muted);
-  font-size: 0.95rem;
-  line-height: 1.65;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-6px);
+  transition: max-height 0.45s var(--ease-out), opacity 0.4s var(--ease-out), transform 0.35s var(--ease-out);
+}
+
+/* Au survol : la description apparaît */
+.workflow-step:hover .workflow-step-desc {
+  max-height: 200px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.workflow-step:hover .workflow-step-head {
+  margin-bottom: 0.5rem;
 }
 
 .workflow-video-cta {
@@ -1191,7 +1250,7 @@ img {
 
 /* Images d'illustration par service */
 .service-block--social .service-block-bg {
-  background-image: url('https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=600&q=80');
+  background-image: url('../images/contenu-social.png');
 }
 
 .service-block--corporate .service-block-bg {
@@ -1199,7 +1258,7 @@ img {
 }
 
 .service-block--ugc .service-block-bg {
-  background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80');
+  background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=80');
 }
 
 .service-block--drone .service-block-bg {
