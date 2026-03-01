@@ -1042,7 +1042,11 @@ img {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  transition: opacity 0.45s var(--ease-out);
+  transition: opacity 0.45s var(--ease-out), transform 0.5s var(--ease-out);
+}
+
+.service-block:hover:not(.is-open) .service-block-bg {
+  transform: scale(1.06);
 }
 
 /* Au clic (is-open) : l'image disparaît */
@@ -1057,7 +1061,12 @@ img {
   inset: 0;
   background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.75) 100%);
   pointer-events: none;
-  transition: opacity 0.4s var(--ease-out);
+  transition: opacity 0.4s var(--ease-out), background 0.4s var(--ease-out);
+}
+
+/* Au survol : overlay plus sombre + description apparaît */
+.service-block:hover:not(.is-open)::after {
+  background: rgba(0, 0, 0, 0.78);
 }
 
 .service-block.is-open::after {
@@ -1107,18 +1116,29 @@ img {
 .service-block-desc {
   font-size: 1rem;
   line-height: 1.55;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.95);
   margin: 0;
   max-height: 0;
   opacity: 0;
   overflow: hidden;
-  transition: max-height 0.5s var(--ease-out), opacity 0.4s var(--ease-out);
+  transform: translateY(8px);
+  transition: max-height 0.5s var(--ease-out), opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out), color 0.3s var(--ease-out);
 }
 
-/* Au clic (is-open) : la description apparaît */
+/* Au survol : la description apparaît avec un effet de fondu + slide, texte blanc sur l'image */
+.service-block:hover .service-block-desc {
+  max-height: 400px;
+  opacity: 1;
+  transform: translateY(0);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* Au clic (is-open) : la description reste visible, texte en couleur site */
 .service-block.is-open .service-block-desc {
   max-height: 400px;
   opacity: 1;
+  transform: translateY(0);
+  color: var(--text-muted);
 }
 
 .service-block--small .service-block-title {
@@ -1132,6 +1152,10 @@ img {
 .service-block--small .service-block-desc {
   font-size: 0.9rem;
   line-height: 1.5;
+}
+
+.service-block--small:hover .service-block-desc {
+  max-height: 180px;
 }
 
 .service-block--small.is-open .service-block-desc {
