@@ -116,6 +116,28 @@
     updateWorkflowScroll();
   }
 
+  // ----- Timeline : au clic sur une étape, afficher l'image
+  const workflowPreview = document.getElementById('workflowTimelinePreview');
+  const workflowPreviewImg = document.getElementById('workflowTimelinePreviewImg');
+  document.querySelectorAll('.workflow-step[data-workflow-image]').forEach(function (step) {
+    step.addEventListener('click', function () {
+      var imgUrl = this.getAttribute('data-workflow-image');
+      if (!workflowPreview || !workflowPreviewImg) return;
+      workflowSteps.forEach(function (s) { s.classList.remove('is-active'); });
+      this.classList.add('is-active');
+      if (imgUrl) {
+        workflowPreviewImg.src = imgUrl;
+        workflowPreviewImg.alt = this.querySelector('h3') ? this.querySelector('h3').textContent : '';
+        workflowPreviewImg.removeAttribute('hidden');
+        workflowPreview.classList.add('has-image');
+      } else {
+        workflowPreview.classList.remove('has-image');
+        workflowPreviewImg.setAttribute('hidden', '');
+        workflowPreviewImg.removeAttribute('src');
+      }
+    });
+  });
+
   // ----- Testimonials carousel
   const track = document.getElementById('testimonialsTrack');
   const prevBtn = document.getElementById('testimonialPrev');
