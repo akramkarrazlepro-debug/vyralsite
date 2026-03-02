@@ -725,21 +725,15 @@ img {
   margin: 0 auto;
 }
 
-.showreel-label {
-  font-size: 0.75rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--primary-light);
-  margin-bottom: 1rem;
-}
-
 .showreel-title {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  font-size: clamp(3.5rem, 12vw, 7rem);
   margin-bottom: 2.5rem;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   text-align: center;
+  color: var(--text);
+  line-height: 1;
 }
 
 .showreel-video-wrap {
