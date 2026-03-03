@@ -1048,24 +1048,26 @@ img {
   padding: 6rem 2rem;
   max-width: 1400px;
   margin: 0 auto;
+  min-height: 0;
 }
 
 .services-blocks {
   margin-top: 2.5rem;
 }
 
-/* Bento grid : 3 colonnes × 4 rangées, style bulle (espacé, arrondi) */
+/* Grille asymétrique style croquis : 1 Reels (gauche grand), 2 Films, 3 Pub, 4 UGC, 5 Drone — prennent toute la place */
 .services-blocks-bento {
   display: grid;
   gap: 1.25rem;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, minmax(120px, 1fr));
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas:
-    "reels reels films"
-    "reels reels pub"
-    "drone drone pub"
-    ". . ugc";
-  min-height: 480px;
+    "reels films"
+    "reels pub"
+    "ugc drone";
+  min-height: 560px;
+  height: 70vh;
+  max-height: 720px;
 }
 
 @media (max-width: 799px) {
@@ -1076,9 +1078,11 @@ img {
       "reels"
       "films"
       "pub"
-      "drone"
-      "ugc";
+      "ugc"
+      "drone";
     min-height: 0;
+    height: auto;
+    max-height: none;
     gap: 1rem;
   }
   .service-block--reels { grid-area: reels; }
@@ -1116,7 +1120,7 @@ img {
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  min-height: 160px;
+  min-height: 120px;
   border-radius: 12px;
   transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
   margin: 0;
