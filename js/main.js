@@ -12,6 +12,37 @@
     }, { passive: true });
   }
 
+  // ----- Effet de défilement accueil → 2e section (desktop uniquement)
+  const heroContent = document.querySelector('.hero-content');
+  const workflowSection = document.querySelector('.workflow');
+  if (heroContent && workflowSection) {
+    function updateScrollTransition() {
+      const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+      if (!isDesktop) {
+        heroContent.style.transform = '';
+        heroContent.style.opacity = '';
+        heroContent.style.transition = '';
+        workflowSection.style.transform = '';
+        workflowSection.style.opacity = '';
+        workflowSection.style.transition = '';
+        return;
+      }
+      const scrollY = window.scrollY;
+      const heroH = hero ? hero.offsetHeight : window.innerHeight;
+      const progress = Math.min(scrollY / heroH, 1);
+      const progress2 = Math.max(0, Math.min(1, (scrollY - heroH * 0.2) / (heroH * 0.6)));
+      heroContent.style.transform = 'scale(' + (1 - progress * 0.12) + ') translateY(' + (-progress * 50) + 'px)';
+      heroContent.style.opacity = String(1 - progress * 0.65);
+      heroContent.style.transition = 'transform 0.2s ease-out, opacity 0.2s ease-out';
+      workflowSection.style.transform = 'translateY(' + (80 * (1 - progress2)) + 'px)';
+      workflowSection.style.opacity = String(0.3 + 0.7 * progress2);
+      workflowSection.style.transition = 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.35s ease-out';
+    }
+    window.addEventListener('scroll', updateScrollTransition, { passive: true });
+    window.addEventListener('resize', updateScrollTransition);
+    updateScrollTransition();
+  }
+
   // ----- Hero : effet typewriter (écriture au clavier) pour les mots
   var heroRotatingWord = document.getElementById('heroRotatingWord');
   if (heroRotatingWord) {

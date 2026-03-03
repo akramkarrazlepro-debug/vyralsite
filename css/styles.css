@@ -1062,13 +1062,14 @@ img {
   text-shadow: 0 0 20px rgba(34, 211, 238, 0.9), 0 0 40px rgba(14, 165, 233, 0.6);
 }
 
+/* Trait fluo uniquement sous le mot "vous" */
 .title-highlight::after {
   content: '';
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0.1em;
-  height: 0.4em;
+  bottom: -4px;
+  height: 5px;
   background: linear-gradient(90deg, #22d3ee, #0ea5e9);
   border-radius: 2px;
   z-index: -1;
