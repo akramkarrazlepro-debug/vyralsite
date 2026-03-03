@@ -942,7 +942,7 @@ img {
   display: inline-block;
 }
 
-/* ----- Ce qu'on crée pour vous : 4 cartes, stagger au scroll, hover dégradé ----- */
+/* ----- Ce qu'on crée pour vous — style "Experienced in Various Video Types" (House of Shafaq) ----- */
 .creates-section {
   padding: 6rem 2rem;
   max-width: 1200px;
@@ -951,7 +951,7 @@ img {
 
 .creates-title {
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 3rem;
 }
 
 .creates-cards {
@@ -969,40 +969,33 @@ img {
 @media (min-width: 900px) {
   .creates-cards {
     grid-template-columns: repeat(4, 1fr);
-    gap: 1.25rem;
+    gap: 1.5rem;
   }
 }
 
 .creates-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 2rem;
-  opacity: 0;
-  transform: translateY(36px);
-  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), background 0.35s var(--ease-out);
-}
-
-.creates-section.is-visible .creates-card {
-  animation: createsCardReveal 0.5s var(--ease-out) forwards;
-}
-
-.creates-section.is-visible .creates-card[data-creates-index="0"] { animation-delay: 0ms; }
-.creates-section.is-visible .creates-card[data-creates-index="1"] { animation-delay: 150ms; }
-.creates-section.is-visible .creates-card[data-creates-index="2"] { animation-delay: 300ms; }
-.creates-section.is-visible .creates-card[data-creates-index="3"] { animation-delay: 450ms; }
-
-@keyframes createsCardReveal {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  border-radius: 12px;
+  padding: 2rem 1.75rem;
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), border-color 0.3s ease;
+  position: relative;
 }
 
 .creates-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35), 0 0 32px rgba(14, 165, 233, 0.15);
-  background: linear-gradient(145deg, rgba(14, 165, 233, 0.08) 0%, rgba(14, 165, 233, 0.02) 100%);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  border-color: rgba(14, 165, 233, 0.4);
+}
+
+.creates-card-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary-light);
+  margin-bottom: 1rem;
 }
 
 .creates-card-inner {
@@ -1011,7 +1004,7 @@ img {
 
 .creates-card h3 {
   font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--text);
   margin: 0 0 0.75rem;
@@ -1022,7 +1015,32 @@ img {
   color: var(--text-muted);
   font-size: 0.95rem;
   line-height: 1.6;
-  margin: 0;
+  margin: 0 0 1.25rem;
+}
+
+.creates-card-link {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--primary-light);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: gap 0.25s var(--ease-out), color 0.2s ease;
+}
+
+.creates-card-link:hover {
+  color: var(--primary);
+  gap: 0.6rem;
+}
+
+.creates-cta {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+.creates-cta .btn {
+  display: inline-block;
 }
 
 /* ----- Services : bento grid (grid-template-areas), overlay, hover description ----- */
