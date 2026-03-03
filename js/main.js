@@ -12,6 +12,26 @@
     }, { passive: true });
   }
 
+  // ----- Hero : mots qui changent en boucle avec effet flip (toutes les 2 s)
+  var heroRotatingWord = document.getElementById('heroRotatingWord');
+  if (heroRotatingWord) {
+    var heroWords = ['restaurants', 'opticiens', 'galeries d\'art', 'commerces', 'artistes', 'entreprises'];
+    var heroWordIndex = 0;
+    function updateHeroWord() {
+      heroRotatingWord.classList.add('hero-word-flip');
+      setTimeout(function () {
+        heroWordIndex = (heroWordIndex + 1) % heroWords.length;
+        heroRotatingWord.textContent = heroWords[heroWordIndex];
+        heroRotatingWord.setAttribute('aria-label', heroWords[heroWordIndex]);
+      }, 250);
+      heroRotatingWord.addEventListener('animationend', function removeFlip() {
+        heroRotatingWord.classList.remove('hero-word-flip');
+        heroRotatingWord.removeEventListener('animationend', removeFlip);
+      }, { once: true });
+    }
+    setInterval(updateHeroWord, 2000);
+  }
+
   // ----- Header scroll
   const header = document.getElementById('header');
   if (header) {
@@ -59,6 +79,19 @@
   revealEls.forEach(function (el) {
     revealObserver.observe(el);
   });
+
+  // ----- Ce qu'on crée pour vous : Intersection Observer pour stagger (bas → haut, 150 ms entre chaque carte)
+  const createsSection = document.querySelector('.creates-section');
+  if (createsSection) {
+    const createsObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          createsSection.classList.add('is-visible');
+        }
+      });
+    }, { root: null, rootMargin: '0px 0px -60px 0px', threshold: 0.15 });
+    createsObserver.observe(createsSection);
+  }
 
   // ----- Testimonials carousel
   const track = document.getElementById('testimonialsTrack');

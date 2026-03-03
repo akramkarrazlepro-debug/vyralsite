@@ -410,6 +410,18 @@ img {
   font-size: 1rem;
 }
 
+/* Bouton hero : bien visible, plein, coloré */
+.btn-hero-cta {
+  padding: 1.1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  box-shadow: 0 8px 32px rgba(14, 165, 233, 0.35), 0 0 0 1px rgba(14, 165, 233, 0.2);
+}
+
+.btn-hero-cta:hover {
+  box-shadow: 0 20px 48px rgba(14, 165, 233, 0.5), 0 0 0 1px rgba(14, 165, 233, 0.3);
+}
+
 /* ----- Hero ----- */
 .hero {
   min-height: 100vh;
@@ -486,53 +498,66 @@ img {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: clamp(2.25rem, 5.5vw, 3.75rem);
-  line-height: 1.15;
+  line-height: 1.2;
   letter-spacing: -0.03em;
   margin-bottom: 1.5rem;
   max-width: min(100%, 720px);
   margin-left: auto;
   margin-right: auto;
-}
-
-.hero-title .line {
-  display: block;
-  overflow: hidden;
-}
-
-.hero-title .line span {
-  display: inline-block;
-  animation: revealLine 1s var(--ease-out) forwards;
-}
-
-.hero-title .line:nth-child(2) span {
-  animation-delay: 0.15s;
-  animation-fill-mode: both;
-}
-
-/* Ligne principale : impact visuel */
-.hero-title-main {
+  text-align: center;
   color: var(--text);
-  text-shadow: 0 0 60px rgba(14, 165, 233, 0.15), 0 2px 24px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 0 60px rgba(14, 165, 233, 0.12), 0 2px 24px rgba(0, 0, 0, 0.2);
 }
 
-/* Tagline : plus légère, couleur accent */
-.hero-title-tagline {
-  font-size: 0.55em;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--primary-light);
-  margin-top: 0.35em;
+.hero-title-fixed {
   display: block;
+}
+
+.hero-rotating-wrap {
+  display: inline-block;
+  perspective: 320px;
+  min-height: 1.2em;
+  vertical-align: top;
+}
+
+.hero-rotating-word {
+  display: inline-block;
+  color: var(--primary-light);
   background: linear-gradient(135deg, var(--primary-light), var(--accent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  transform-origin: center bottom;
 }
 
 @supports (not (-webkit-background-clip: text)) {
-  .hero-title-tagline {
+  .hero-rotating-word {
     color: var(--primary-light);
     -webkit-text-fill-color: inherit;
+  }
+}
+
+/* Effet flip vertical au changement de mot */
+.hero-rotating-word.hero-word-flip {
+  animation: heroWordFlip 0.5s ease-in-out forwards;
+}
+
+@keyframes heroWordFlip {
+  0% {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+  45% {
+    transform: rotateX(-90deg);
+    opacity: 0;
+  }
+  55% {
+    transform: rotateX(90deg);
+    opacity: 0;
+  }
+  100% {
+    transform: rotateX(0deg);
+    opacity: 1;
   }
 }
 
@@ -927,6 +952,89 @@ img {
 
 .workflow-video-cta .btn {
   display: inline-block;
+}
+
+/* ----- Ce qu'on crée pour vous : 4 cartes, stagger au scroll, hover dégradé ----- */
+.creates-section {
+  padding: 6rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.creates-title {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.creates-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 600px) {
+  .creates-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .creates-cards {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+.creates-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 2rem;
+  opacity: 0;
+  transform: translateY(36px);
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), background 0.35s var(--ease-out);
+}
+
+.creates-section.is-visible .creates-card {
+  animation: createsCardReveal 0.5s var(--ease-out) forwards;
+}
+
+.creates-section.is-visible .creates-card[data-creates-index="0"] { animation-delay: 0ms; }
+.creates-section.is-visible .creates-card[data-creates-index="1"] { animation-delay: 150ms; }
+.creates-section.is-visible .creates-card[data-creates-index="2"] { animation-delay: 300ms; }
+.creates-section.is-visible .creates-card[data-creates-index="3"] { animation-delay: 450ms; }
+
+@keyframes createsCardReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.creates-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35), 0 0 32px rgba(14, 165, 233, 0.15);
+  background: linear-gradient(145deg, rgba(14, 165, 233, 0.08) 0%, rgba(14, 165, 233, 0.02) 100%);
+}
+
+.creates-card-inner {
+  position: relative;
+}
+
+.creates-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 0.75rem;
+  line-height: 1.3;
+}
+
+.creates-card p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
 }
 
 /* ----- Services main : vertical + paysage + petits carrés, clic = description + image disparaît ----- */
