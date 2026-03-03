@@ -1054,10 +1054,10 @@ img {
   margin-top: 2.5rem;
 }
 
-/* Bento grid : 3 colonnes × 4 rangées, sans espace, cartes qui s'emboîtent */
+/* Bento grid : 3 colonnes × 4 rangées, style bulle (espacé, arrondi) */
 .services-blocks-bento {
   display: grid;
-  gap: 0;
+  gap: 1.25rem;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(4, minmax(120px, 1fr));
   grid-template-areas:
@@ -1066,8 +1066,6 @@ img {
     "drone drone pub"
     ". . ugc";
   min-height: 480px;
-  overflow: hidden;
-  border-radius: 14px;
 }
 
 @media (max-width: 799px) {
@@ -1125,13 +1123,14 @@ img {
 }
 
 .services-blocks-bento .service-block {
-  border-radius: 0;
+  border-radius: 24px;
   min-height: 0;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
 }
 
 .service-block:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
 }
 
 /* Carte Reels : remplit sa cellule, effet écran smartphone (bordure + arrondi) */
