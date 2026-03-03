@@ -497,11 +497,11 @@ img {
 .hero-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(2.25rem, 5.5vw, 3.75rem);
-  line-height: 1.2;
+  font-size: clamp(3rem, 8vw, 5rem);
+  line-height: 1.15;
   letter-spacing: -0.03em;
   margin-bottom: 1.5rem;
-  max-width: min(100%, 720px);
+  max-width: min(100%, 900px);
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -515,9 +515,9 @@ img {
 
 .hero-rotating-wrap {
   display: inline-block;
-  perspective: 320px;
-  min-height: 1.2em;
+  min-height: 1.15em;
   vertical-align: top;
+  text-align: left;
 }
 
 .hero-rotating-word {
@@ -527,7 +527,6 @@ img {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  transform-origin: center bottom;
 }
 
 @supports (not (-webkit-background-clip: text)) {
@@ -537,28 +536,17 @@ img {
   }
 }
 
-/* Effet flip vertical au changement de mot */
-.hero-rotating-word.hero-word-flip {
-  animation: heroWordFlip 0.5s ease-in-out forwards;
+/* Curseur typewriter qui clignote */
+.hero-typewriter-cursor {
+  display: inline-block;
+  color: var(--primary-light);
+  font-weight: 400;
+  animation: heroCursorBlink 0.7s step-end infinite;
+  margin-left: 1px;
 }
 
-@keyframes heroWordFlip {
-  0% {
-    transform: rotateX(0deg);
-    opacity: 1;
-  }
-  45% {
-    transform: rotateX(-90deg);
-    opacity: 0;
-  }
-  55% {
-    transform: rotateX(90deg);
-    opacity: 0;
-  }
-  100% {
-    transform: rotateX(0deg);
-    opacity: 1;
-  }
+@keyframes heroCursorBlink {
+  50% { opacity: 0; }
 }
 
 .hero-subtitle {

@@ -12,24 +12,60 @@
     }, { passive: true });
   }
 
-  // ----- Hero : mots qui changent en boucle avec effet flip (toutes les 2 s)
+  // ----- Hero : effet typewriter (écriture au clavier) pour les mots
   var heroRotatingWord = document.getElementById('heroRotatingWord');
   if (heroRotatingWord) {
     var heroWords = ['restaurants', 'opticiens', 'galeries d\'art', 'commerces', 'artistes', 'entreprises'];
     var heroWordIndex = 0;
-    function updateHeroWord() {
-      heroRotatingWord.classList.add('hero-word-flip');
-      setTimeout(function () {
-        heroWordIndex = (heroWordIndex + 1) % heroWords.length;
-        heroRotatingWord.textContent = heroWords[heroWordIndex];
-        heroRotatingWord.setAttribute('aria-label', heroWords[heroWordIndex]);
-      }, 250);
-      heroRotatingWord.addEventListener('animationend', function removeFlip() {
-        heroRotatingWord.classList.remove('hero-word-flip');
-        heroRotatingWord.removeEventListener('animationend', removeFlip);
-      }, { once: true });
+    var typeSpeed = 90;
+    var eraseSpeed = 50;
+    var pauseAfterWord = 1400;
+
+    function typeWord(word, done) {
+      var i = 0;
+      heroRotatingWord.textContent = '';
+      heroRotatingWord.setAttribute('aria-label', word);
+      function addLetter() {
+        if (i < word.length) {
+          heroRotatingWord.textContent += word[i];
+          i++;
+          setTimeout(addLetter, typeSpeed);
+        } else {
+          setTimeout(done, pauseAfterWord);
+        }
+      }
+      addLetter();
     }
-    setInterval(updateHeroWord, 2000);
+
+    function eraseWord(done) {
+      var text = heroRotatingWord.textContent;
+      if (text.length === 0) return done();
+      function removeLetter() {
+        text = heroRotatingWord.textContent;
+        if (text.length > 0) {
+          heroRotatingWord.textContent = text.slice(0, -1);
+          setTimeout(removeLetter, eraseSpeed);
+        } else {
+          done();
+        }
+      }
+      removeLetter();
+    }
+
+    function nextWord() {
+      heroWordIndex = (heroWordIndex + 1) % heroWords.length;
+      typeWord(heroWords[heroWordIndex], function () {
+        eraseWord(function () {
+          nextWord();
+        });
+      });
+    }
+
+    typeWord(heroWords[0], function () {
+      eraseWord(function () {
+        nextWord();
+      });
+    });
   }
 
   // ----- Header scroll
