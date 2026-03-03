@@ -15,7 +15,7 @@
   // ----- Hero : effet typewriter (écriture au clavier) pour les mots
   var heroRotatingWord = document.getElementById('heroRotatingWord');
   if (heroRotatingWord) {
-    var heroWords = ['restaurants', 'opticiens', 'galeries d\'art', 'commerces', 'artistes', 'entreprises'];
+    var heroWords = ['restaurants', 'opticiens', 'galeries d\'art', 'commerces', 'boutiques', 'café', 'artistes', 'entreprises'];
     var heroWordIndex = 0;
     var typeSpeed = 90;
     var eraseSpeed = 50;
