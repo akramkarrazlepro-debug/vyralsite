@@ -1036,18 +1036,20 @@ img {
   margin-top: 2.5rem;
 }
 
-/* Bento grid : 3 colonnes × 4 rangées, sans espace */
+/* Bento grid : 3 colonnes × 4 rangées, sans espace, cartes qui s'emboîtent */
 .services-blocks-bento {
   display: grid;
   gap: 0;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, minmax(140px, 1fr));
+  grid-template-rows: repeat(4, minmax(120px, 1fr));
   grid-template-areas:
     "reels reels films"
     "reels reels pub"
     "drone drone pub"
     ". . ugc";
-  min-height: 520px;
+  min-height: 480px;
+  overflow: hidden;
+  border-radius: 14px;
 }
 
 @media (max-width: 799px) {
@@ -1068,8 +1070,17 @@ img {
   .service-block--ads { grid-area: pub; }
   .service-block--drone { grid-area: drone; }
   .service-block--ugc { grid-area: ugc; }
+  .service-block--reels {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .service-block--reels .service-block-phone {
+    width: auto;
+    height: auto;
     max-height: 70vh;
+    aspect-ratio: 9 / 16;
+    max-width: 100%;
   }
   .services-blocks-bento .service-block--films,
   .services-blocks-bento .service-block--ads,
@@ -1092,10 +1103,12 @@ img {
   min-height: 160px;
   border-radius: 12px;
   transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+  margin: 0;
 }
 
 .services-blocks-bento .service-block {
-  border-radius: 10px;
+  border-radius: 0;
+  min-height: 0;
 }
 
 .service-block:hover {
@@ -1103,25 +1116,20 @@ img {
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
 }
 
-/* Carte Reels : format vertical 9:16, effet écran smartphone */
+/* Carte Reels : remplit sa cellule, effet écran smartphone (bordure + arrondi) */
 .service-block--reels {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
   min-height: 0;
+  padding: 0;
 }
 
 .service-block-phone {
   position: relative;
   width: 100%;
-  max-width: 280px;
-  aspect-ratio: 9 / 16;
-  border-radius: 24px;
+  height: 100%;
+  min-height: 0;
   overflow: hidden;
   border: 3px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  flex-shrink: 0;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
 .service-block--reels::after {
@@ -1134,7 +1142,6 @@ img {
   inset: 0;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.35) 50%, transparent 100%);
   pointer-events: none;
-  border-radius: 21px;
 }
 
 .service-block--reels .service-block-bg,
@@ -1167,10 +1174,6 @@ img {
   inset: 0;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.35) 50%, transparent 100%);
   pointer-events: none;
-}
-
-.service-block-phone::after {
-  border-radius: 21px;
 }
 
 .service-block-content {
