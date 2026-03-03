@@ -1025,7 +1025,7 @@ img {
   margin: 0;
 }
 
-/* ----- Services : 4 cartes visuelles avec image de fond, overlay dégradé, hover zoom ----- */
+/* ----- Services : bento grid (grid-template-areas), overlay, hover description ----- */
 .services-main {
   padding: 6rem 2rem;
   max-width: 1400px;
@@ -1033,47 +1033,118 @@ img {
 }
 
 .services-blocks {
-  display: grid;
-  gap: 1.25rem;
   margin-top: 2.5rem;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto;
 }
 
-/* Grille 4 cartes visuelles : 1 col mobile, 2 cols tablette, 4 cols desktop */
-.services-blocks-visual {
-  grid-template-columns: 1fr;
+/* Bento grid : 3 colonnes × 4 rangées, sans espace */
+.services-blocks-bento {
+  display: grid;
+  gap: 0;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, minmax(140px, 1fr));
+  grid-template-areas:
+    "reels reels films"
+    "reels reels pub"
+    "drone drone pub"
+    ". . ugc";
+  min-height: 520px;
 }
 
-@media (min-width: 600px) {
-  .services-blocks-visual {
-    grid-template-columns: repeat(2, 1fr);
+@media (max-width: 799px) {
+  .services-blocks-bento {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "reels"
+      "films"
+      "pub"
+      "drone"
+      "ugc";
+    min-height: 0;
+    gap: 1rem;
+  }
+  .service-block--reels { grid-area: reels; }
+  .service-block--films { grid-area: films; }
+  .service-block--ads { grid-area: pub; }
+  .service-block--drone { grid-area: drone; }
+  .service-block--ugc { grid-area: ugc; }
+  .service-block--reels .service-block-phone {
+    max-height: 70vh;
+  }
+  .services-blocks-bento .service-block--films,
+  .services-blocks-bento .service-block--ads,
+  .services-blocks-bento .service-block--drone,
+  .services-blocks-bento .service-block--ugc {
+    min-height: 220px;
   }
 }
 
-@media (min-width: 1000px) {
-  .services-blocks-visual {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
+.service-block--reels { grid-area: reels; }
+.service-block--films { grid-area: films; }
+.service-block--ads { grid-area: pub; }
+.service-block--drone { grid-area: drone; }
+.service-block--ugc { grid-area: ugc; }
 
 .service-block {
   position: relative;
-  border-radius: 20px;
   overflow: hidden;
-  min-height: 260px;
   cursor: pointer;
-  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+  min-height: 160px;
+  border-radius: 12px;
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
 }
 
-/* Cartes visuelles : hauteur min 400px, texte en overlay avec dégradé en bas */
-.service-block--visual {
-  min-height: 400px;
+.services-blocks-bento .service-block {
+  border-radius: 10px;
 }
 
-.service-block--visual:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+.service-block:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+/* Carte Reels : format vertical 9:16, effet écran smartphone */
+.service-block--reels {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  min-height: 0;
+}
+
+.service-block-phone {
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 9 / 16;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+}
+
+.service-block--reels::after {
+  display: none;
+}
+
+.service-block-phone::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.35) 50%, transparent 100%);
+  pointer-events: none;
+  border-radius: 21px;
+}
+
+.service-block--reels .service-block-bg,
+.service-block--reels .service-block-content {
+  position: absolute;
+  inset: 0;
+}
+
+.service-block--reels .service-block-content {
+  padding: 1rem 1.25rem;
 }
 
 .service-block-bg {
@@ -1082,79 +1153,80 @@ img {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  transition: opacity 0.45s var(--ease-out), transform 0.6s ease-out;
+  transition: transform 0.6s ease-out;
 }
 
-/* Hover : zoom léger de l'image (scale 1.05) */
-.service-block--visual:hover .service-block-bg {
+.service-block:hover .service-block-bg {
   transform: scale(1.05);
 }
 
-/* Overlay : dégradé sombre en bas pour lisible du texte */
-.service-block--visual::after {
+/* Overlay sombre en bas pour toutes les cartes */
+.service-block::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 45%, transparent 100%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.35) 50%, transparent 100%);
   pointer-events: none;
+}
+
+.service-block-phone::after {
+  border-radius: 21px;
 }
 
 .service-block-content {
   position: relative;
   z-index: 2;
-  padding: 1.5rem 1.75rem;
+  padding: 1.25rem 1.5rem;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
 }
 
-.service-block--visual .service-block-content {
-  justify-content: flex-end;
-}
-
 .service-block-title {
   font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 700;
   color: #fff;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
-  margin: 0 0 0.5rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  margin: 0 0 0.35rem;
 }
 
 .service-block-desc {
-  font-size: 1rem;
-  line-height: 1.55;
+  font-size: 0.9rem;
+  line-height: 1.5;
   color: rgba(255, 255, 255, 0.95);
   margin: 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.4s var(--ease-out), opacity 0.35s var(--ease-out);
 }
 
-/* Description toujours visible sur les cartes visuelles (dans la zone dégradée) */
-.service-block--visual .service-block-desc {
-  max-height: none;
+.service-block:hover .service-block-desc {
+  max-height: 120px;
   opacity: 1;
-  transform: none;
 }
 
 /* Images Unsplash par carte (temporaires) */
-/* Reels : smartphone / contenu Instagram */
 .service-block--reels .service-block-bg {
-  background-image: url('https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=80');
+  background-image: url('https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=600&q=80');
 }
 
-/* Films corporate : tournage corporate */
-.service-block--corporate .service-block-bg {
+.service-block--films .service-block-bg {
   background-image: url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80');
 }
 
-/* Publicités vidéo : publicité colorée */
 .service-block--ads .service-block-bg {
   background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80');
 }
 
-/* Drone & FPV : vue aérienne */
 .service-block--drone .service-block-bg {
   background-image: url('https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=800&q=80');
+}
+
+.service-block--ugc .service-block-bg {
+  background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=80');
 }
 
 .link-arrow {
