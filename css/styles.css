@@ -848,22 +848,16 @@ img {
 }
 
 /* Grille en mode paysage : 2 colonnes desktop, cartes horizontales (icône + texte) */
+/* Étapes les unes à la suite des autres (une colonne) */
 .workflow-steps-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 @media (min-width: 600px) {
   .workflow-steps-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 900px) {
-  .workflow-steps-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.75rem;
+    gap: 1.5rem;
   }
 }
 
