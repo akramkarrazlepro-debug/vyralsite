@@ -201,6 +201,22 @@
         ScrollTrigger.refresh();
       });
     }
+
+    // Process / Méthode : chaque étape slide + fade au scroll (reverse en remontant)
+    var processSteps = document.querySelectorAll('.process-step');
+    processSteps.forEach(function (step) {
+      gsap.from(step, {
+        x: -30,
+        opacity: 0,
+        duration: 1,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: step,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        }
+      });
+    });
   }
 
   // ----- Testimonials carousel
