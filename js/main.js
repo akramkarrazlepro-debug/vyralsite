@@ -156,12 +156,12 @@
     var isDesktop = window.matchMedia('(min-width: 1024px)').matches;
 
     if (wrapper && panels.length > 0 && isDesktop) {
-      // Wrapper 600vh : 5 tranches de 100vh pour les panels + 100vh marge en fin (voir Drone en entier)
+      // Wrapper 500vh : 4 tranches de 100vh pour les panels + 100vh marge en fin (voir Drone en entier)
       panels.forEach(function (panel, i) {
         if (i === 0) return;
 
-        var pctStart = (i / 6) * 100;
-        var pctEnd = ((i + 1) / 6) * 100;
+        var pctStart = (i / 5) * 100;
+        var pctEnd = ((i + 1) / 5) * 100;
         var pctMid = pctStart + (pctEnd - pctStart) * 0.5;
 
         gsap.fromTo(panel,
@@ -274,6 +274,27 @@
       if (target) {
         e.preventDefault();
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // ----- FAQ accordéon : ouverture/fermeture au clic (un seul ouvert à la fois)
+  document.querySelectorAll('.faq-question').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var item = this.closest('.faq-item');
+      var answer = item.querySelector('.faq-answer');
+      var isOpening = !item.classList.contains('is-open');
+
+      document.querySelectorAll('.faq-item').forEach(function (other) {
+        other.classList.remove('is-open');
+        other.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        other.querySelector('.faq-answer').setAttribute('hidden', '');
+      });
+
+      if (isOpening) {
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+        answer.removeAttribute('hidden');
       }
     });
   });
