@@ -1310,11 +1310,11 @@ img {
 }
 
 .panel-content--ads {
-  background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1600&q=80');
+  background-image: url('../images/publicite-bts.png');
 }
 
 .panel-content--corporate {
-  background-image: url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1600&q=80');
+  background-image: url('../images/film-corporate.png');
 }
 
 .panel-content--drone {
