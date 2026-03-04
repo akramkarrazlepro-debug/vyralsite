@@ -1388,7 +1388,7 @@ img {
     position: relative;
     height: auto;
     min-height: 0;
-    padding: 0 1rem;
+    padding: 0;
     gap: 1rem;
   }
 
@@ -1401,6 +1401,8 @@ img {
     border-radius: 1.5rem;
     overflow: hidden;
     margin-bottom: 1rem;
+    border: none;
+    box-shadow: none;
   }
 
   .service-panel--first {
@@ -1412,6 +1414,8 @@ img {
     min-height: 52vh;
     justify-content: flex-end;
     border-radius: 1.5rem;
+    border: none;
+    box-shadow: none;
   }
 
   .panel-overlay {
