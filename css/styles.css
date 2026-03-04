@@ -376,6 +376,26 @@ img {
   padding: 0.5rem 0;
 }
 
+.nav-mobile-cta {
+  display: block;
+  margin-top: 0.5rem;
+  padding: 1rem 1.5rem !important;
+  text-align: center;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #fff !important;
+  border-radius: 8px;
+  border: none;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+.nav-mobile-cta:hover {
+  background: linear-gradient(135deg, var(--primary-dark), var(--accent-dark));
+  color: #fff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(14, 165, 233, 0.35);
+}
+
 @media (max-width: 900px) {
   .nav {
     display: none;
