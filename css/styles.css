@@ -72,7 +72,7 @@ body {
     position: absolute;
     width: 30px;
     height: 30px;
-    border: 2px solid #3b82f6;
+    border: 2px solid var(--primary);
     border-radius: 50%;
     background: transparent;
     transition: transform 0.25s var(--ease-out), background 0.25s ease, border-color 0.25s ease;
@@ -82,15 +82,15 @@ body {
     position: absolute;
     width: 4px;
     height: 4px;
-    background: #3b82f6;
+    background: var(--primary);
     border-radius: 50%;
     transition: transform 0.25s var(--ease-out), opacity 0.25s ease;
   }
 
   .cursor-wrap.cursor-hover .cursor-outer {
     transform: scale(2.5);
-    background: rgba(59, 130, 246, 0.2);
-    border-color: #3b82f6;
+    background: rgba(14, 165, 233, 0.2);
+    border-color: var(--primary);
   }
 
   .cursor-wrap.cursor-hover .cursor-inner {
@@ -1941,7 +1941,7 @@ img {
   font-weight: 800;
   font-size: clamp(2.5rem, 6vw, 4rem);
   letter-spacing: -0.02em;
-  color: #fff;
+  color: var(--text);
   line-height: 1.1;
   margin-bottom: 3rem;
 }
@@ -1964,7 +1964,7 @@ img {
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border);
   border-radius: 2.5rem;
   padding: 2.5rem;
   overflow: hidden;
@@ -1990,7 +1990,7 @@ img {
   font-family: var(--font-body);
   font-size: 1.15rem;
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--text);
   font-style: italic;
   margin: 0 0 1.75rem;
   position: relative;
@@ -2009,15 +2009,15 @@ img {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
   font-size: 1.1rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--text);
   flex-shrink: 0;
 }
 
@@ -2033,13 +2033,13 @@ img {
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #fff;
+  color: var(--text);
 }
 
 .testimonial-glass-role {
   font-family: var(--font-body);
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-muted);
 }
 
 /* ----- FAQ (accordéon) ----- */
