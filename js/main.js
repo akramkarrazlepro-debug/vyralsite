@@ -156,12 +156,12 @@
     var isDesktop = window.matchMedia('(min-width: 1024px)').matches;
 
     if (wrapper && panels.length > 0 && isDesktop) {
-      // Wrapper a une hauteur 500vh en CSS : les triggers utilisent des % de cette hauteur
+      // Wrapper 600vh : 5 tranches de 100vh pour les panels + 100vh marge en fin (voir Drone en entier)
       panels.forEach(function (panel, i) {
         if (i === 0) return;
 
-        var pctStart = (i / panels.length) * 100;
-        var pctEnd = ((i + 1) / panels.length) * 100;
+        var pctStart = (i / 6) * 100;
+        var pctEnd = ((i + 1) / 6) * 100;
         var pctMid = pctStart + (pctEnd - pctStart) * 0.5;
 
         gsap.fromTo(panel,

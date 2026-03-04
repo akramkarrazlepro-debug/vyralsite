@@ -1112,8 +1112,9 @@ img {
 
 @media (min-width: 1024px) {
   .services-wrapper {
-    height: 500vh;
-    min-height: 500vh;
+    /* 600vh = 5 panels (500vh) + 100vh de marge pour voir le dernier panel en entier */
+    height: 600vh;
+    min-height: 600vh;
   }
 
   .services-viewport {
@@ -1170,6 +1171,7 @@ img {
 }
 
 .panel-label {
+  font-family: var(--font-body);
   display: block;
   font-size: 0.7rem;
   font-weight: 700;
