@@ -1377,7 +1377,7 @@ img {
   background-image: url('https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=1600&q=80');
 }
 
-/* Mobile : pas d'effet wipe, panels empilés, lisibilité et typo adaptées */
+/* Mobile : pas d'effet wipe, panels empilés, bords arrondis, bulles plus compactes */
 @media (max-width: 1023px) {
   .services-wrapper {
     min-height: 0;
@@ -1388,14 +1388,19 @@ img {
     position: relative;
     height: auto;
     min-height: 0;
+    padding: 0 1rem;
+    gap: 1rem;
   }
 
   .service-panel {
     position: relative;
     height: auto;
-    min-height: 75vh;
+    min-height: 0;
     clip-path: none;
-    padding: 2rem 0;
+    padding: 0;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    margin-bottom: 1rem;
   }
 
   .service-panel--first {
@@ -1403,9 +1408,10 @@ img {
   }
 
   .panel-content {
-    padding: 2rem 1.25rem;
-    min-height: 70vh;
+    padding: 1.75rem 1.25rem;
+    min-height: 52vh;
     justify-content: flex-end;
+    border-radius: 1.5rem;
   }
 
   .panel-overlay {
@@ -1938,11 +1944,11 @@ img {
 
 .testimonials-socialproof-title {
   font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3rem);
   letter-spacing: -0.02em;
   color: var(--text);
-  line-height: 1.1;
+  line-height: 1.2;
   margin-bottom: 3rem;
 }
 
