@@ -147,17 +147,68 @@
     revealObserver.observe(el);
   });
 
-  // ----- Ce qu'on crée pour vous : Intersection Observer pour stagger (bas → haut, 150 ms entre chaque carte)
-  const createsSection = document.querySelector('.creates-section');
-  if (createsSection) {
-    const createsObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          createsSection.classList.add('is-visible');
+  // ----- GSAP : Services Wipe Reveal (pin + clip-path + fade texte)
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+
+    var panels = gsap.utils.toArray('.service-panel');
+    var wrapper = document.querySelector('.services-wrapper');
+    var isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+
+    if (wrapper && panels.length > 0 && isDesktop) {
+      var endScroll = panels.length * 100;
+
+      ScrollTrigger.create({
+        trigger: wrapper,
+        start: 'top top',
+        end: '+=' + endScroll + '%',
+        pin: true,
+        scrub: 1
+      });
+
+      panels.forEach(function (panel, i) {
+        if (i === 0) return;
+
+        var segmentStart = i * 100;
+        var segmentEnd = (i + 1) * 100;
+
+        gsap.fromTo(panel,
+          { clipPath: 'inset(100% 0 0 0)' },
+          {
+            clipPath: 'inset(0% 0 0 0)',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: wrapper,
+              start: '+=' + segmentStart + '% top',
+              end: '+=' + segmentEnd + '% top',
+              scrub: true
+            }
+          }
+        );
+
+        var inner = panel.querySelector('.panel-inner');
+        if (inner) {
+          gsap.fromTo(inner,
+            { y: 100, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: wrapper,
+                start: '+=' + segmentStart + '% top',
+                end: '+=' + (segmentStart + (segmentEnd - segmentStart) * 0.5) + '% top',
+                scrub: true
+              }
+            }
+          );
         }
       });
-    }, { root: null, rootMargin: '0px 0px -60px 0px', threshold: 0.15 });
-    createsObserver.observe(createsSection);
+
+      window.addEventListener('load', function () {
+        ScrollTrigger.refresh();
+      });
+    }
   }
 
   // ----- Testimonials carousel
