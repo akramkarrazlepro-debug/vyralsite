@@ -11,6 +11,11 @@
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
+  <!-- Curseur personnalisé (masqué sur tactile, affiché si pointer: fine) -->
+  <div class="cursor-wrap" id="cursorWrap" aria-hidden="true">
+    <span class="cursor-outer"></span>
+    <span class="cursor-inner"></span>
+  </div>
   <!-- Header -->
   <header class="header" id="header">
     <div class="header-inner">
@@ -145,31 +150,53 @@
       </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="testimonials">
-      <div class="testimonials-bg"></div>
-      <h2 class="section-title reveal">Ils nous ont fait confiance</h2>
-      <div class="testimonials-slider">
-        <button class="slider-btn slider-prev" id="testimonialPrev" aria-label="Précédent">←</button>
-        <div class="testimonials-track-wrap">
-          <div class="testimonials-track" id="testimonialsTrack">
-          <div class="testimonial-card">
-            <blockquote>On voulait des Reels pro sans y passer des heures. Vyral a géré de A à Z : tournage, montage, publication. Notre compte Instagram a pris un vrai coup de boost.</blockquote>
-            <cite>— Sophie M., gérante</cite>
-          </div>
-          <div class="testimonial-card">
-            <blockquote>Pour notre film de présentation d'entreprise, on cherchait une équipe réactive et à l'écoute. Le rendu était au rendez-vous et le processus sans prise de tête.</blockquote>
-            <cite>— Thomas L., directeur marketing</cite>
-          </div>
-          <div class="testimonial-card">
-            <blockquote>Les vidéos UGC qu'ils ont produites pour nos campagnes Meta ont vraiment fait la différence. Contenu authentique, délais tenus. On recommande.</blockquote>
-            <cite>— Marie K., fondatrice</cite>
-          </div>
-          </div>
+    <!-- Témoignages clients — Social Proof -->
+    <section class="testimonials-socialproof" id="testimonials">
+      <div class="testimonials-socialproof-inner">
+        <p class="testimonials-socialproof-label">Social Proof</p>
+        <h2 class="testimonials-socialproof-title">D'AUTRES ONT SAUTÉ LE PAS.</h2>
+        <div class="testimonials-socialproof-grid">
+          <article class="testimonial-glass-card">
+            <span class="testimonial-glass-quote" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.998 3.638-3.998 5.849h3.002v10h-9z"/></svg>
+            </span>
+            <blockquote class="testimonial-glass-text">On voulait des Reels pro sans y passer des heures. Vyral a géré de A à Z : tournage, montage, publication. Notre compte Instagram a pris un vrai coup de boost.</blockquote>
+            <div class="testimonial-glass-author">
+              <div class="testimonial-glass-avatar">S</div>
+              <div class="testimonial-glass-meta">
+                <span class="testimonial-glass-name">Sophie M.</span>
+                <span class="testimonial-glass-role">Gérante</span>
+              </div>
+            </div>
+          </article>
+          <article class="testimonial-glass-card">
+            <span class="testimonial-glass-quote" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.998 3.638-3.998 5.849h3.002v10h-9z"/></svg>
+            </span>
+            <blockquote class="testimonial-glass-text">Pour notre film de présentation d'entreprise, on cherchait une équipe réactive et à l'écoute. Le rendu était au rendez-vous et le processus sans prise de tête.</blockquote>
+            <div class="testimonial-glass-author">
+              <div class="testimonial-glass-avatar">T</div>
+              <div class="testimonial-glass-meta">
+                <span class="testimonial-glass-name">Thomas L.</span>
+                <span class="testimonial-glass-role">Directeur Marketing</span>
+              </div>
+            </div>
+          </article>
+          <article class="testimonial-glass-card">
+            <span class="testimonial-glass-quote" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.998 3.638-3.998 5.849h3.002v10h-9z"/></svg>
+            </span>
+            <blockquote class="testimonial-glass-text">Les vidéos UGC qu'ils ont produites pour nos campagnes Meta ont vraiment fait la différence. Contenu authentique, délais tenus. On recommande.</blockquote>
+            <div class="testimonial-glass-author">
+              <div class="testimonial-glass-avatar">M</div>
+              <div class="testimonial-glass-meta">
+                <span class="testimonial-glass-name">Marie K.</span>
+                <span class="testimonial-glass-role">Fondatrice</span>
+              </div>
+            </div>
+          </article>
         </div>
-        <button class="slider-btn slider-next" id="testimonialNext" aria-label="Suivant">→</button>
       </div>
-      <div class="testimonials-dots" id="testimonialsDots"></div>
     </section>
 
     <!-- FAQ -->
@@ -182,7 +209,7 @@
             <span class="faq-icon" aria-hidden="true"></span>
           </button>
           <div class="faq-answer" id="faq-1" role="region" aria-labelledby="faq-q1" hidden>
-            <p>Chaque projet est unique, c'est pourquoi on ne croit pas aux tarifs figés. On s'adapte à votre budget pour trouver le format le plus impactant possible. Le meilleur moyen de savoir ? Un appel de 20 minutes, sans engagement.</p>
+            <p>Chaque projet est unique, c'est pourquoi on ne croit pas aux tarifs figés. On s'adapte à votre budget pour trouver le format le plus impactant possible. Il existe aussi des packs mensuels pour les Reels et la vidéo social media. Le meilleur moyen de savoir ? Un appel de 20 minutes, sans engagement.</p>
           </div>
         </div>
         <div class="faq-item">

@@ -42,6 +42,62 @@ body {
   position: relative;
 }
 
+/* Curseur personnalisé : uniquement si souris (pointer: fine), sinon curseur natif */
+@media (pointer: fine) {
+  body.has-custom-cursor {
+    cursor: none;
+  }
+
+  .cursor-wrap {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    pointer-events: none;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    will-change: transform;
+  }
+
+  body.has-custom-cursor .cursor-wrap {
+    opacity: 1;
+  }
+
+  .cursor-outer {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: 2px solid #3b82f6;
+    border-radius: 50%;
+    background: transparent;
+    transition: transform 0.25s var(--ease-out), background 0.25s ease, border-color 0.25s ease;
+  }
+
+  .cursor-inner {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #3b82f6;
+    border-radius: 50%;
+    transition: transform 0.25s var(--ease-out), opacity 0.25s ease;
+  }
+
+  .cursor-wrap.cursor-hover .cursor-outer {
+    transform: scale(2.5);
+    background: rgba(59, 130, 246, 0.2);
+    border-color: #3b82f6;
+  }
+
+  .cursor-wrap.cursor-hover .cursor-inner {
+    opacity: 0.6;
+  }
+}
+
 /* Arrière-plan global — mesh cinématographique */
 body::before {
   content: '';
@@ -1321,16 +1377,60 @@ img {
   background-image: url('https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=1600&q=80');
 }
 
+/* Mobile : pas d'effet wipe, panels empilés, lisibilité et typo adaptées */
 @media (max-width: 1023px) {
+  .services-wrapper {
+    min-height: 0;
+    height: auto;
+  }
+
+  .services-viewport {
+    position: relative;
+    height: auto;
+    min-height: 0;
+  }
+
   .service-panel {
     position: relative;
-    height: 100vh;
-    min-height: 400px;
+    height: auto;
+    min-height: 75vh;
     clip-path: none;
+    padding: 2rem 0;
   }
 
   .service-panel--first {
     position: relative;
+  }
+
+  .panel-content {
+    padding: 2rem 1.25rem;
+    min-height: 70vh;
+    justify-content: flex-end;
+  }
+
+  .panel-overlay {
+    background: linear-gradient(to top, rgba(10, 10, 15, 0.95) 0%, rgba(10, 10, 15, 0.6) 40%, transparent 100%);
+  }
+
+  .panel-inner {
+    max-width: none;
+  }
+
+  .panel-label {
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .panel-title {
+    font-size: clamp(1.75rem, 6vw, 2.5rem);
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
+  }
+
+  .panel-desc {
+    font-size: 1rem;
+    line-height: 1.65;
+    max-width: none;
   }
 }
 
@@ -1812,6 +1912,134 @@ img {
 .testimonials-dots .dot.active {
   background: var(--primary);
   transform: scale(1.2);
+}
+
+/* ----- Témoignages Social Proof — fond #080808, grille 3 colonnes, cartes verre ----- */
+.testimonials-socialproof {
+  background: #080808;
+  padding: 6rem 2rem;
+  position: relative;
+}
+
+.testimonials-socialproof-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.testimonials-socialproof-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--primary-light);
+  margin-bottom: 0.75rem;
+}
+
+.testimonials-socialproof-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  letter-spacing: -0.02em;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 3rem;
+}
+
+.testimonials-socialproof-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .testimonials-socialproof-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+.testimonial-glass-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 2.5rem;
+  padding: 2.5rem;
+  overflow: hidden;
+}
+
+.testimonial-glass-quote {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  width: 80px;
+  height: 80px;
+  opacity: 0.2;
+  color: var(--primary-light);
+  pointer-events: none;
+}
+
+.testimonial-glass-quote svg {
+  width: 100%;
+  height: 100%;
+}
+
+.testimonial-glass-text {
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  font-style: italic;
+  margin: 0 0 1.75rem;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonial-glass-author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonial-glass-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.testimonial-glass-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.testimonial-glass-name {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.testimonial-glass-role {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 /* ----- FAQ (accordéon) ----- */

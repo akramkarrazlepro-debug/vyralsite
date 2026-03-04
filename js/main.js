@@ -1,6 +1,35 @@
 (function () {
   'use strict';
 
+  // ----- Curseur personnalisé (souris uniquement, suivi GSAP + grossissement sur liens/boutons)
+  if (window.matchMedia('(pointer: fine)').matches) {
+    var cursorWrap = document.getElementById('cursorWrap');
+    if (cursorWrap) {
+      document.body.classList.add('has-custom-cursor');
+      if (typeof gsap !== 'undefined') {
+        gsap.set(cursorWrap, { xPercent: -50, yPercent: -50 });
+        document.addEventListener('mousemove', function (e) {
+          gsap.to(cursorWrap, {
+            x: e.clientX,
+            y: e.clientY,
+            duration: 0.15,
+            ease: 'power2.out'
+          });
+        });
+      } else {
+        document.addEventListener('mousemove', function (e) {
+          cursorWrap.style.left = (e.clientX - 15) + 'px';
+          cursorWrap.style.top = (e.clientY - 15) + 'px';
+        });
+      }
+      var hoverTargets = document.querySelectorAll('a, button, .btn, [role="button"], .faq-question');
+      hoverTargets.forEach(function (el) {
+        el.addEventListener('mouseenter', function () { cursorWrap.classList.add('cursor-hover'); });
+        el.addEventListener('mouseleave', function () { cursorWrap.classList.remove('cursor-hover'); });
+      });
+    }
+  }
+
   // ----- Parallax léger sur le hero (profondeur)
   const hero = document.querySelector('.hero');
   const heroBg = document.querySelector('.hero-bg-gradient');
@@ -212,6 +241,22 @@
         ease: 'power2.out',
         scrollTrigger: {
           trigger: step,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        }
+      });
+    });
+
+    // Témoignages Social Proof : cartes fade-in + slide up au scroll
+    var glassCards = document.querySelectorAll('.testimonial-glass-card');
+    glassCards.forEach(function (card) {
+      gsap.from(card, {
+        opacity: 0,
+        y: 50,
+        duration: 0.8,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: card,
           start: 'top 85%',
           toggleActions: 'play none none reverse'
         }
