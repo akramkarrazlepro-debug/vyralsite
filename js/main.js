@@ -147,7 +147,7 @@
     revealObserver.observe(el);
   });
 
-  // ----- GSAP : Services Wipe Reveal (pin + clip-path + fade texte)
+  // ----- GSAP : Services Wipe Reveal (wrapper 500vh + sticky viewport, clip-path + fade texte)
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -156,21 +156,13 @@
     var isDesktop = window.matchMedia('(min-width: 1024px)').matches;
 
     if (wrapper && panels.length > 0 && isDesktop) {
-      var endScroll = panels.length * 100;
-
-      ScrollTrigger.create({
-        trigger: wrapper,
-        start: 'top top',
-        end: '+=' + endScroll + '%',
-        pin: true,
-        scrub: 1
-      });
-
+      // Wrapper a une hauteur 500vh en CSS : les triggers utilisent des % de cette hauteur
       panels.forEach(function (panel, i) {
         if (i === 0) return;
 
-        var segmentStart = i * 100;
-        var segmentEnd = (i + 1) * 100;
+        var pctStart = (i / panels.length) * 100;
+        var pctEnd = ((i + 1) / panels.length) * 100;
+        var pctMid = pctStart + (pctEnd - pctStart) * 0.5;
 
         gsap.fromTo(panel,
           { clipPath: 'inset(100% 0 0 0)' },
@@ -179,8 +171,8 @@
             ease: 'none',
             scrollTrigger: {
               trigger: wrapper,
-              start: '+=' + segmentStart + '% top',
-              end: '+=' + segmentEnd + '% top',
+              start: pctStart + '% top',
+              end: pctEnd + '% top',
               scrub: true
             }
           }
@@ -196,8 +188,8 @@
               ease: 'power2.out',
               scrollTrigger: {
                 trigger: wrapper,
-                start: '+=' + segmentStart + '% top',
-                end: '+=' + (segmentStart + (segmentEnd - segmentStart) * 0.5) + '% top',
+                start: pctStart + '% top',
+                end: pctMid + '% top',
                 scrub: true
               }
             }
