@@ -1,6 +1,77 @@
 (function () {
   'use strict';
 
+  // ----- Consentement cookies (RGPD / ePrivacy)
+  var COOKIE_CONSENT_KEY = 'vyral_cookie_consent';
+  var COOKIE_CONSENT_EXPIRY_MONTHS = 13;
+
+  function getConsent() {
+    try {
+      var raw = localStorage.getItem(COOKIE_CONSENT_KEY);
+      if (!raw) return null;
+      var data = JSON.parse(raw);
+      if (data && data.choice && data.date) {
+        var expiry = new Date(data.date);
+        expiry.setMonth(expiry.getMonth() + COOKIE_CONSENT_EXPIRY_MONTHS);
+        if (new Date() < expiry) return data.choice;
+      }
+    } catch (e) {}
+    return null;
+  }
+
+  function setConsent(choice) {
+    try {
+      localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify({
+        choice: choice,
+        date: new Date().toISOString()
+      }));
+    } catch (e) {}
+  }
+
+  function loadOptionalAssets() {
+    var link = document.getElementById('fonts-link');
+    if (link && link.getAttribute('data-href')) {
+      link.href = link.getAttribute('data-href');
+    }
+  }
+
+  function applyConsent(choice) {
+    setConsent(choice);
+    if (choice === 'all') loadOptionalAssets();
+    var banner = document.getElementById('cookie-banner');
+    if (banner) {
+      banner.setAttribute('hidden', '');
+    }
+  }
+
+  function showCookieBanner() {
+    var banner = document.getElementById('cookie-banner');
+    if (banner) banner.removeAttribute('hidden');
+  }
+
+  (function initCookieBanner() {
+    var consent = getConsent();
+    var banner = document.getElementById('cookie-banner');
+    if (!banner) return;
+    if (consent !== null) {
+      banner.setAttribute('hidden', '');
+      if (consent === 'all') loadOptionalAssets();
+      return;
+    }
+    showCookieBanner();
+
+    document.getElementById('cookie-accept-all')?.addEventListener('click', function () {
+      applyConsent('all');
+    });
+    document.getElementById('cookie-reject')?.addEventListener('click', function () {
+      applyConsent('necessary');
+    });
+    document.getElementById('footer-cookie-prefs')?.addEventListener('click', function () {
+      showCookieBanner();
+      document.querySelector('.cookie-banner')?.scrollIntoView({ behavior: 'smooth' });
+    });
+  })();
+
   // ----- Curseur personnalisé (souris uniquement, suivi GSAP + grossissement sur liens/boutons)
   if (window.matchMedia('(pointer: fine)').matches) {
     var cursorWrap = document.getElementById('cursorWrap');

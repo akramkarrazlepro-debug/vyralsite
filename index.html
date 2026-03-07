@@ -7,10 +7,23 @@
   <meta name="description" content="Reels, films corporate, UGC — on produit tout ce dont votre business a besoin pour cartonner sur les réseaux. Basés à Bruxelles, disponibles partout." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <!-- Polices chargées après consentement cookies (RGPD) -->
+  <link id="fonts-link" rel="stylesheet" href="" data-href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
+  <!-- Bandeau cookies (RGPD / ePrivacy) -->
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Choix des cookies" aria-describedby="cookie-banner-desc" hidden>
+    <div class="cookie-banner-inner">
+      <p id="cookie-banner-desc" class="cookie-banner-text">
+        Nous utilisons des cookies et technologies similaires pour faire fonctionner le site, personnaliser le contenu et analyser le trafic. Vous pouvez accepter tous les cookies, ou refuser les cookies non essentiels. Consultez notre <a href="confidentialite.html#cookies">politique de confidentialité</a> pour en savoir plus.
+      </p>
+      <div class="cookie-banner-actions">
+        <button type="button" id="cookie-accept-all" class="btn btn-primary btn-cookie">Tout accepter</button>
+        <button type="button" id="cookie-reject" class="btn btn-cookie-outline">Tout refuser</button>
+      </div>
+    </div>
+  </div>
   <!-- Curseur personnalisé (masqué sur tactile, affiché si pointer: fine) -->
   <div class="cursor-wrap" id="cursorWrap" aria-hidden="true">
     <span class="cursor-outer"></span>
@@ -299,8 +312,9 @@
           <a href="#contact">Contact</a>
         </div>
         <div class="footer-legal">
-          <a href="#">Mentions légales</a>
-          <a href="#">Politique de confidentialité</a>
+          <a href="mentions-legales.html">Mentions légales</a>
+          <a href="confidentialite.html">Politique de confidentialité</a>
+          <button type="button" id="footer-cookie-prefs" class="footer-cookie-prefs">Gérer les cookies</button>
         </div>
       </div>
       <div class="footer-bottom">
